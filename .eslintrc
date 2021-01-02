@@ -1,0 +1,12 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended", "google"],
+  "parser": "babel-eslint",
+  "rules": {
+    "semi": "off",
+    "quotes": "off",
+  }
+}
