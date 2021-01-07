@@ -1,0 +1,41 @@
+.search-form  {
+  display: block;
+  position: relative;
+  height: 34px;
+  max-width: 1038px;
+  margin: 0 auto;
+  &__input {
+    width: calc(100% - (37px * 2) - 4px);
+    height: 30px;
+    font-size: 24px;
+    padding: 0 37px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  label {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: gray;
+    display: block;
+    height: 34px;
+    width: 34px;
+    border-radius: 10%;
+    span {
+      width: 100%;
+      line-height: 34px;
+      text-align: center;
+    }
+  }
+  input:focus + label {
+    height: 30px;
+    width: 30px;
+    left: 2px;
+    top: 2px;
+    span {
+      line-height: 30px;
+    }
+
+  }
+}
