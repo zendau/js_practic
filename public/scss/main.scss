@@ -1,0 +1,23 @@
+@import "mixins";
+@import "variables";
+@import "Main page/main_page";
+@import "excel/excel";
+
+@import "~normalize.css";
+
+body {
+  background-color: #b3b1b1;
+  font-family: 'Roboto', sans-serif;
+}
+
+.main {
+  &-wrapper {
+    margin: 15px;
+  }
+
+  &-container {
+    width: 1200px;
+    margin: 0 auto;
+  }
+
+}
