@@ -10,7 +10,7 @@ export class Formula extends ComponentController {
         return `
             <div class="formula">
                 <label for="formula" class="formula__icon">FX</label>
-                <input id="formula" class="formula__input" type="text">
+                <input id="formula"  @input="test1()" placeholder='alex@gmail.com' @hover="test2()" class="formula__input" type="text">
             </div>
         `
     }

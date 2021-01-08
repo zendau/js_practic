@@ -11,7 +11,17 @@ export class Excel {
         $("#app").html("<h1>Hello</h1>")
         $("#app").addClass(['test', "hello", "world"])
 
-        const res = new Formula().parser("<input class='input' @input='test1()' @hover='test2()'> placeholder='alex@gmail.com'")
-        res.forEach(item => console.log(`event ${item[0]} and method ${item[1]}`))
+        // const res = new Formula().parser(`
+        //     <div class="formula">
+        //         <label for="formula" class="formula__icon">FX</label>
+        //         <input id="formula" @input="test1()" placeholder='alex@gmail.com' @hover="test2()" class="formula__input" type="text">
+        //     </div>`)
+        // res.forEach(item => console.log(`event ${item[0]} and method ${item[1]}`))
+
+        new Formula().dom_parser(`
+            <div class="formula">
+                <label for="formula" class="formula__icon">FX</label>
+                <input id="formula" @input="test1()" @click="test3()" @input="test4()"placeholder='alex@gmail.com' @hover="test2()" class="formula__input" type="text">
+            </div>`)
     }
 }
