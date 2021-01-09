@@ -2,9 +2,11 @@ import {ComponentController} from "@/js/core/ComponentController";
 
 export class Table extends ComponentController {
     static ClassName = "table"
-
+    listener
+    class_name
     constructor() {
-        super();
+        super()
+        this.class_name = "Table"
     }
 
     toHtml() {

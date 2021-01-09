@@ -1,8 +1,8 @@
 import {DomListener} from "@core/DomListener";
 
 export class ComponentController extends DomListener {
-    constructor() {
-        super()
+    constructor(cont) {
+        super(cont)
     }
 
 
@@ -16,7 +16,6 @@ export class ComponentController extends DomListener {
                 if (node.getAttribute("@"+event)) res.push(node)
             })
         })
-        console.log(res)
         for (let i = 0; i < res.length; i++) {
             if (res[i] == res[i+1]) {
                 res.splice(i, 1)
@@ -24,7 +23,7 @@ export class ComponentController extends DomListener {
             }
         }
 
-        res.forEach(item => this.html_parser(item))
+        return res.map(item => this.html_parser(item))
     }
     html_parser(node) {
         const class_name = node.className
@@ -32,8 +31,11 @@ export class ComponentController extends DomListener {
         this.$events.forEach(event => {
             if (node.getAttribute("@"+event)) attr[event] = node.getAttribute("@"+event)
         })
-        console.log(`Class name ${class_name} and attr`)
-        console.log(attr);
+        return [class_name, attr]
+    }
+
+    init() {
+        this.addListener(this.dom_parser(this.toHtml()))
     }
 }
 

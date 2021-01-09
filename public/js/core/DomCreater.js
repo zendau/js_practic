@@ -70,10 +70,11 @@ class DomCreater {
         if (data.nodeType) {
             this.$el.append(data)
         } else {
-            let html = this.$el.innerHTML
-            html += data
-            this.$el.innerHTML = html
+            const node = document.createElement("div")
+            node.innerHTML = data
+            Object.keys(node.children).forEach(item => this.$el.append(node.children[item]))
         }
+        return this
     }
 }
 

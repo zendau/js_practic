@@ -2,9 +2,11 @@ import {ComponentController} from "@/js/core/ComponentController";
 
 export class Toolbar extends ComponentController {
     static ClassName = "toolbar"
-
+    listener
+    class_name
     constructor() {
-        super();
+        super()
+        this.class_name = "Toolbar"
     }
 
     toHtml() {
