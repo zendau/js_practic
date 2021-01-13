@@ -10,7 +10,7 @@ export class Excel {
             component.init(component)
         })
         this.components = components
-        $("#app").html("<h1>Hello</h1>")
+        // $("#app").html("<h1>Hello</h1>")
         $("#app").addClass(['test', "hello", "world"])
 
         // const res = new Formula().parser(`

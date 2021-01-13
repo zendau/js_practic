@@ -1,6 +1,7 @@
 .table {
-  position: relative;
-  width: 700px;
+  position: absolute;
+  left: 0;
+  padding: 0 50px;
   &__column-list {
     list-style: none;
     display: flex;
@@ -34,10 +35,13 @@
     padding: 0;
   }
 
+  &__container {
+    display: flex;
+    max-width: 100%;
+  }
+
   &__cells {
-    position: absolute;
-    top: 52px;
-    left: 32px;
+
   }
 
   &__cell {
