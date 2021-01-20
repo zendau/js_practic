@@ -5,7 +5,7 @@ export class Toolbar extends ComponentController {
     listener
     class_name
     constructor(args = {}) {
-        super()
+        super(args)
         this.class_name = "Toolbar"
     }
 

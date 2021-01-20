@@ -109,7 +109,7 @@ class DomCreater {
             this.$el.value = data
             return this
         }
-        return $(this.$el.value)
+        return this.$el.value
     }
 }
 

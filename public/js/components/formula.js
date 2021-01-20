@@ -6,32 +6,31 @@ export class Formula extends ComponentController {
     listener
     class_name
     constructor(args = {}) {
-        super()
+        super(args)
         this.class_name = "Formula"
-        this.args = args
-        this.args.emmit.on("reset input", data => {
-            console.log("clean")
-            $("#formula").value("")
-        })
     }
     toHtml() {
         return `
             <div class="formula">
                 <label for="formula" class="formula__icon">FX</label>
-                <input id="formula"  @input="test1()" placeholder='alex@gmail.com' @hover="test2()" class="formula__input" type="text">
+                <input id="formula" @input="onInput()"  @keydown="onKeydown()" class="formula__input" type="text">
             </div>
         `
     }
 
-    test1(e) {
-        this.args.emmit.emit("update cell", e.target.value)
+    init() {
+        super.init()
+        this.$on("formula:input", data => $("#formula").value(data[0]))
     }
 
-    test2() {
-
+    onInput(e) {
+        this.$emit("table:cell", e.target.value)
     }
 
-    test3() {
-
+    onKeydown(e) {
+        if (e.key === "Enter") {
+            e.preventDefault()
+            this.$emit("table:change_focus")
+        }
     }
 }

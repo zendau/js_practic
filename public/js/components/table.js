@@ -11,10 +11,9 @@ export class Table extends ComponentController {
     class_name
     selected_id
     constructor(args = {}) {
-        super()
+        super(args)
         this.class_name = "table"
         this.row_size = 20
-        this.args = args
     }
 
     toHtml() {
@@ -38,15 +37,13 @@ export class Table extends ComponentController {
         this.select = new TableSelect(this.args)
         this.selected_id = [0, 0]
         this.select.select(this.selected_id)
-        this.args.emmit.on("update cell", data => {
-            this.select.selectedCell.value(data[0])
-        })
+        this.$on("table:cell", data => this.select.selectedCell.value(data[0]))
+        this.$on("table:change_focus", data => this.select.selectedCell.focus())
     }
 
     onMousedown(event) {
         if (event.target.dataset.coll === "resize" | event.target.dataset.row === "resize") {
             table_resize(event)
-            console.log(event)
         } else if (event.target.dataset.cell && event.shiftKey) {
             this.select.start_cell = $(event.target).parse_id()
 
@@ -66,32 +63,54 @@ export class Table extends ComponentController {
 
     onKeydown(event) {
         switch (event.key) {
+        case "Enter":
+            event.preventDefault()
+            // eslint-disable-next-line no-fallthrough
         case "ArrowDown":
-            if (this.select.currentElement[0] != 0) {
-                this.select.currentElement[0]++
+            this.select.selectedCeLLid[0]++
+            if (this.select.selectedCeLLid[0] >= this.row_size) {
+                this.select.selectedCeLLid[0]--
+                break
             }
-            this.select.select(this.select.currentElement)
+            this.select.select(this.select.selectedCeLLid)
+            this.updateCell()
             break
         case "ArrowUp":
-            if (this.select.currentElement[0] == 0) break
-            this.select.currentElement[0]--
-            this.select.select(this.select.currentElement)
-            break
-        case "ArrowRight":
-            if (this.select.currentElement[1] == 0) break
-            this.select.currentElement[1]++
+            this.select.selectedCeLLid[0]--
+            if (this.select.selectedCeLLid[0] < 0) {
+                this.select.selectedCeLLid[0]++
+                break
+            }
+            this.select.select(this.select.selectedCeLLid)
             this.updateCell()
-            this.select.select(this.select.currentElement)
+            break
+        case "Tab":
+            event.preventDefault()
+        // eslint-disable-next-line no-fallthrough
+        case "ArrowRight":
+            this.select.selectedCeLLid[1]++
+            if (this.select.selectedCeLLid[1] > 25) {
+                this.select.selectedCeLLid[1]--
+                break
+            }
+            this.select.select(this.select.selectedCeLLid)
+            this.updateCell()
             break
         case "ArrowLeft":
-            if (this.select.currentElement[1] == 0) break
-            this.select.currentElement[1]--
-            this.select.select(this.select.currentElement)
+            this.select.selectedCeLLid[1]--
+            if (this.select.selectedCeLLid[1] < 0) {
+                this.select.selectedCeLLid[1]++
+                break
+            }
+            this.select.select(this.select.selectedCeLLid)
+            this.updateCell()
             break
+        default:
+            this.updateCell()
         }
     }
 
     updateCell() {
-        this.args.emmit.emit("reset input")
+        this.$emit("formula:input", $(this.select.selectedCell).value())
     }
 }

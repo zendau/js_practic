@@ -1,8 +1,9 @@
 import {DomListener} from "@core/DomListener";
 
 export class ComponentController extends DomListener {
-    constructor(cont) {
-        super(cont)
+    constructor(args) {
+        super()
+        this.args = args
     }
 
     dom_parser(html) {
@@ -31,6 +32,14 @@ export class ComponentController extends DomListener {
             if (node.getAttribute("@"+event)) attr[event] = node.getAttribute("@"+event)
         })
         return [class_name, attr]
+    }
+
+    $emit(event, ...args) {
+        this.args.emmit.emit(event, args)
+    }
+
+    $on(event, callback) {
+        this.args.emmit.on(event, callback)
     }
 
     init() {

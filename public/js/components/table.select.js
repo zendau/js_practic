@@ -5,7 +5,7 @@ import {Table} from "@/js/components/table";
 export class TableSelect {
     start_cell
     end_cell
-    currentElement
+    selectedCeLLid
     selectedCell
     constructor(args = {}) {
         this.selectedElements = []
@@ -17,7 +17,7 @@ export class TableSelect {
         $(element).addClass("table__cell--selected").focus()
         this.selectedCell = element
         this.selectedElements.push(elem.join(":"))
-        this.currentElement = this.selectedElements[0].split(":")
+        this.selectedCeLLid = this.selectedElements[0].split(":")
     }
 
     selectGroup() {
@@ -33,7 +33,7 @@ export class TableSelect {
             $(Table.ClassName).find(`[data-id='${item}']`).addClass("table__cell--selected")
         })
         this.selectedCell = $(Table.ClassName).find(`[data-id='${this.selectedElements[0]}']`)
-        this.currentElement = this.selectedElements[0].split(":")
+        this.selectedCeLLid = this.selectedElements[0].split(":")
     }
 
     clean() {
