@@ -1,25 +1,52 @@
 .table {
   position: absolute;
   left: 0;
-  padding: 0 50px;
+  margin: 50px;
   &__column-list {
     list-style: none;
     display: flex;
     margin: 0;
     padding: 0;
+    user-select: none;
 
   }
 
   &__column-item {
     border: 1px solid black;
-    width: 100px;
+    width: 102px;
     height: 25px;
     text-align: center;
-    margin-top: 25px;
+    position: relative;
+    box-sizing: border-box;
     &--empty {
       visibility: hidden;
       width: 30px;
     }
+  }
+
+  &__column-resize, &__row-resize {
+    position: absolute;
+    z-index: 100;
+    background-color: blue;
+    right: 0;
+    opacity: 0;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__column-resize {
+    height: 25px;
+    width: 5px;
+    cursor: col-resize;
+  }
+
+  &__row-resize {
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    width: 30px;
+    cursor: row-resize;
   }
 
   &__row-item {
@@ -28,11 +55,17 @@
     width: 30px;
     text-align: center;
     line-height: 25px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
   }
  &__row-list {
     list-style: none;
     margin: 0;
     padding: 0;
+    user-select: none;
   }
 
   &__container {
@@ -40,15 +73,42 @@
     max-width: 100%;
   }
 
-  &__cells {
-
-  }
-
   &__cell {
     margin: 0;
     padding: 0;
-    width: 98px;
-    height: 23px;
+    width: 102px;
+    height: 100%;
+    box-sizing: border-box;
+
+    &--selected {
+      outline: 2px solid blue;
+      z-index: 100;
+      border: 0;
+    }
+  }
+
+  &__col-resize {
+    width: 2px;
+    background-color: blue;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    display: none;
+  }
+
+  &__rows-resize {
+    height: 2px;
+    background-color: blue;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    display: none;
+  }
+
+  &__flex_cell, &__rows {
+    display: flex;
   }
 
 }

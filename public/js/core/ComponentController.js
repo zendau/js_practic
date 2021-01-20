@@ -5,7 +5,6 @@ export class ComponentController extends DomListener {
         super(cont)
     }
 
-
     dom_parser(html) {
         const node = document.createElement("div")
         node.innerHTML = html

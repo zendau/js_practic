@@ -1,7 +1,7 @@
 class DomCreater {
     constructor(selector) {
         if (selector.nodeType) {
-            this.$el = document.querySelector(selector)
+            this.$el = selector
             this.$type = "node"
         } else if (selector[0] === "#") {
             this.$el = document.querySelector(selector)
@@ -9,6 +9,8 @@ class DomCreater {
         } else if (selector[0] === ".") {
             this.$el = document.querySelector(selector)
             this.$type = "class"
+        } else if (selector instanceof DomCreater) {
+            this.$el = selector.$el
         } else {
             this.$el = document.createElement(selector)
             this.$type = "node"
@@ -75,6 +77,39 @@ class DomCreater {
             Object.keys(node.children).forEach(item => this.$el.append(node.children[item]))
         }
         return this
+    }
+
+    getParent(data) {
+        return this.$el.closest(data)
+    }
+
+    css(styles = {}) {
+        Object.keys(styles).forEach(key => this.$el.style[key] = styles[key])
+    }
+
+    get dataset() {
+        return this.$el.dataset
+    }
+
+    find(selector) {
+        return $(this.$el.querySelector(selector))
+    }
+
+    parse_id() {
+        return this.$el.dataset.id.split(":").map(item => +item)
+    }
+
+    focus() {
+        this.$el.focus()
+        return this
+    }
+
+    value(data) {
+        if (data != null) {
+            this.$el.value = data
+            return this
+        }
+        return $(this.$el.value)
     }
 }
 

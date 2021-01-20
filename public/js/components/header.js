@@ -4,7 +4,7 @@ export class Header extends ComponentController {
     static ClassName = "main-container__header"
     listener
     class_name
-    constructor() {
+    constructor(args = {}) {
         super()
         this.class_name = "Header"
     }
