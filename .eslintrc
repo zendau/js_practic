@@ -12,6 +12,9 @@
     "camelcase": "off",
     "indent": ["error", 4],
     "comma-dangle": "off",
-    "require-jsdoc": "off"
+    "require-jsdoc": "off",
+    "max-len": "off",
+    "arrow-parens": "off",
+    "no-debugger": "off"
   }
 }

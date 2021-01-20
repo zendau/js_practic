@@ -24,7 +24,7 @@ module.exports = {
     resolve: {
         alias: {
             "@": path.resolve(__dirname, "public"),
-            "@core": path.resolve(__dirname, "public/core")
+            "@core": path.resolve(__dirname, "public/js/core")
         }
     },
     devServer: {
@@ -33,16 +33,8 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: "./table.html",
-            filename: 'table.html',
-            minify: {
-                collapseWhitespace: isProd,
-                removeComments: isProd,
-            }
-        }),
-        new HtmlWebpackPlugin({
-            template: "./main.html",
-            filename: 'main.html',
+            template: "./index.html",
+            filename: 'index.html',
             minify: {
                 collapseWhitespace: isProd,
                 removeComments: isProd,
@@ -72,7 +64,8 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env']
+                        presets: ['@babel/preset-env'],
+                        plugins: ["@babel/plugin-proposal-class-properties"]
                     }
                 }
             }

@@ -1,7 +1,16 @@
 import {ComponentController} from "@/js/core/ComponentController";
 
-class Header extends ComponentController {
-    constructor() {
-        super();
+export class Header extends ComponentController {
+    static ClassName = "main-container__header"
+    listener
+    class_name
+    constructor(args = {}) {
+        super(args)
+        this.class_name = "Header"
+    }
+    toHtml() {
+        return `
+            <h1 class="main-container__header">File name</h1>
+        `
     }
 }
