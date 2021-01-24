@@ -11,7 +11,20 @@ export class Header extends ComponentController {
     }
     toHtml() {
         return `
-            <input class="main-container__header" value="File name">
+            <input @input="onInput()" class="main-container__header" value="${this.getStore("header") || "Untitled spreadsheet"}">
         `
+    }
+
+    onInput(event) {
+        let val = event.target.value
+
+        event.target.onblur = e => {
+            if (val === "") {
+                val = "Untitled spreadsheet"
+                event.target.value = val
+            }
+            event.target.onblur = null
+            this.$dispatch("headerName", val)
+        }
     }
 }

@@ -6,7 +6,7 @@ export class TableRender {
         }
         this.state = state
         this.BASE_WIDTH = "102px"
-        this.BASE_HEIGHT = "25px"
+        this.BASE_HEIGHT = "28px"
     }
 
     renderColumn(size = 26) {
@@ -29,7 +29,7 @@ export class TableRender {
         const table_rows = []
         const ColStyles = this.state['tableCols']
         const RowStyles = this.state['tableRows']
-        const CellData = this.state["tableCells"]
+        const CellData = JSON.parse(JSON.stringify(this.state["tableCells"]))
         let input_value = ""
         for (let i = 0; i < size; i++) {
             table_rows.push(`
@@ -44,6 +44,13 @@ export class TableRender {
                 '>'}`)
             for (let j = 0; j < 26; j++) {
                 if (CellData[i+":"+j] === undefined) {
+                    CellData[i+":"+j] = {
+                        bolt: false,
+                        italic: false,
+                        underline: false,
+                        fz: "20px",
+                        align: "left"
+                    }
                     input_value = ""
                 } else {
                     input_value = CellData[i + ":" + j]['text']
@@ -54,7 +61,12 @@ export class TableRender {
                     data-id="${i}:${j}"
                     value="${input_value}"
                     style = "
-                        width: ${ColStyles[j] ? ColStyles[j]['value'] : this.BASE_WIDTH} 
+                        width: ${ColStyles[j] ? ColStyles[j]['value'] : this.BASE_WIDTH};
+                        font-weight: ${CellData[i+":"+j]['bold'] ? 'bold' : 'normal'};
+                        font-style: ${CellData[i+":"+j]['italic'] ? 'italic' : 'normal'};
+                        text-decoration: ${CellData[i+":"+j]['underline'] ? 'underline' : 'none'};
+                        text-align: ${CellData[i+":"+j]['align']};
+                        font-size: ${CellData[i+":"+j]['fz']};
                     "
                     >`)
             }

@@ -12,7 +12,7 @@ export class Toolbar extends ComponentController {
 
     toHtml() {
         return `
-            <div class="toolbar">
+            <div class="toolbar" @click="onClick()">
                 <div class="toolbar__item"><span class="material-icons">format_bold</span></div>
                 <div class="toolbar__item"><span class="material-icons">format_italic</span></div>
                 <div class="toolbar__item"><span class="material-icons">format_underlined</span></div>
@@ -23,5 +23,16 @@ export class Toolbar extends ComponentController {
                 <div class="toolbar__item"><span class="material-icons">format_clear</span></div>
             </div>
         `
+    }
+
+    init() {
+        super.init()
+        this.$on("toolbar:active", data => {
+            console.log(data[0][0][data[0][1].join(":")])
+        })
+    }
+
+    onClick(event) {
+        this.$emit("toolbar:changed", event.target.innerText)
     }
 }

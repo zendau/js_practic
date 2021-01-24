@@ -29,6 +29,8 @@ export class StateX {
 
         const data_actions = this.reduce_modules(data["action"])
         Object.keys(data_actions).forEach(key => this.actions[key] = data_actions[key])
+
+        this.getServerData
     }
 
     reduce_modules(modules) {

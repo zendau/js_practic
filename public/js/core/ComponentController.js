@@ -50,8 +50,8 @@ export class ComponentController extends DomListener {
         this.addListener(this.dom_parser(this.html_body))
     }
 
-    get getStore() {
-        return this.args.store.getServerData
+    getStore(name = "all") {
+        return this.args.store.getter(name)
     }
 }
 

@@ -1,5 +1,9 @@
 export const states = () => ({
-    header: {}
+    header: ""
 })
 
-export const actions = () => ({})
+export const actions = () => ({
+    headerName(state, data) {
+        state["header"] = data
+    }
+})
