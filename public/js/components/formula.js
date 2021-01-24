@@ -8,6 +8,7 @@ export class Formula extends ComponentController {
     constructor(args = {}) {
         super(args)
         this.class_name = "Formula"
+        this.html_body = this.toHtml()
     }
     toHtml() {
         return `

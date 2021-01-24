@@ -1,20 +1,22 @@
 export const states = () => ({
-    tableCell: {
-        1: {
-            value: 150
-        },
-        2: {
-            value: 500
-        }
-    },
+    tableCols: {},
+    tableRows: {},
     tableStyle: {},
-    rowStyle: {},
-    collStyle: {}
+    tableCells: {}
 })
 
 
 export const actions = () => ({
-    tableResize(states, data) {
-        states["tableCell"][data[0]] = data[1]
+    tableCols(states, data) {
+        states["tableCols"][data[0]] = data[1]
+    },
+    tableRows(states, data) {
+        states["tableRows"][data[0]] = data[1]
+    },
+    tableCells(states, data) {
+        console.log("data", data[0])
+        console.log("type", typeof data[0])
+        console.log("state", states)
+        states["tableCells"][data[0]] = data[1]
     }
 })

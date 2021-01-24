@@ -7,6 +7,7 @@ export class Toolbar extends ComponentController {
     constructor(args = {}) {
         super(args)
         this.class_name = "Toolbar"
+        this.html_body = this.toHtml()
     }
 
     toHtml() {
@@ -14,8 +15,11 @@ export class Toolbar extends ComponentController {
             <div class="toolbar">
                 <div class="toolbar__item"><span class="material-icons">format_bold</span></div>
                 <div class="toolbar__item"><span class="material-icons">format_italic</span></div>
-                <div class="toolbar__item"><span class="material-icons">format_size</span></div>
                 <div class="toolbar__item"><span class="material-icons">format_underlined</span></div>
+                <div class="toolbar__item"><span class="material-icons">format_size</span></div>
+                <div class="toolbar__item"><span class="material-icons">format_align_left</span></div>
+                <div class="toolbar__item"><span class="material-icons">format_align_center</span></div>
+                <div class="toolbar__item"><span class="material-icons">format_align_right</span></div>
                 <div class="toolbar__item"><span class="material-icons">format_clear</span></div>
             </div>
         `

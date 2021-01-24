@@ -42,8 +42,16 @@ export class ComponentController extends DomListener {
         this.args.emmit.on(event, callback)
     }
 
+    $dispatch(type, args) {
+        this.args.store.dispatch(type, args)
+    }
+
     init() {
-        this.addListener(this.dom_parser(this.toHtml()))
+        this.addListener(this.dom_parser(this.html_body))
+    }
+
+    get getStore() {
+        return this.args.store.getServerData
     }
 }
 

@@ -1,5 +1,5 @@
 import {$} from "@core/DomCreater";
-import {Table} from "@/js/components/table";
+import {Table} from "@/js/components/table/table";
 
 
 export class TableSelect {

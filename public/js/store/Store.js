@@ -20,6 +20,7 @@ export class StateX {
     dispatch(type, args) {
         this.actions[type](this.state, args)
         this.subscribers.forEach(sub => sub(this.state))
+        this.saveSate()
     }
 
     init(data) {
@@ -35,7 +36,6 @@ export class StateX {
         modules.forEach(module => data.push(module()))
 
         if (this.check_copy(data)) {
-            console.log("Success")
             const reduce = {}
             data.forEach(item => Object.assign(reduce, item))
             return reduce
@@ -59,7 +59,21 @@ export class StateX {
         this.subscribers.push(fn)
     }
 
+    saveSate() {
+        localStorage.setItem("state", JSON.stringify(this.state))
+    }
+
     unSubsctibe(fn) {
         this.subscribers = this.subscribers.filter(sub => sub !== fn)
+    }
+
+    get getServerData() {
+        const data = JSON.parse(localStorage.getItem("state"))
+        if (data === null) {
+            return this.getter()
+        } else {
+            this.state = data
+            return this.state
+        }
     }
 }

@@ -2,18 +2,22 @@ import {$} from "@core/DomCreater";
 import {Emmiter} from "@core/Emmiter";
 
 export class Excel {
-    components
-
-    constructor(selector, components) {
+    constructor(selector, parameters) {
         this.emmiter = new Emmiter()
-        components.forEach(Component => {
+        this.components = parameters["components"]
+        this.store = parameters["store"]
+        this.sub_store()
+        parameters["components"].forEach(Component => {
             const component = new Component({
-                "emmit": this.emmiter
+                "emmit": this.emmiter,
+                "store": this.store
             })
-            $(selector).append(component.toHtml())
+            $(selector).append(component.html_body)
             component.init(component)
         })
-        this.components = components
-        $("#app").addClass(['test', "hello", "world"])
+    }
+
+    sub_store() {
+        this.store.subscribe((data) => {})
     }
 }

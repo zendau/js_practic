@@ -7,10 +7,11 @@ export class Header extends ComponentController {
     constructor(args = {}) {
         super(args)
         this.class_name = "Header"
+        this.html_body = this.toHtml()
     }
     toHtml() {
         return `
-            <h1 class="main-container__header">File name</h1>
+            <input class="main-container__header" value="File name">
         `
     }
 }
