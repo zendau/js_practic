@@ -19,5 +19,10 @@ export const actions = () => ({
         } else {
             states["tableCells"][data[0]] = Object.assign(states["tableCells"][data[0]], data[1])
         }
+    },
+    clearStyle(states, data) {
+        const prev_value = states["tableCells"][data[0]]['text']
+        states["tableCells"][data[0]] = {}
+        states["tableCells"][data[0]]['text'] = prev_value
     }
 })
