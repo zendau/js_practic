@@ -4,7 +4,7 @@ import {Toolbar} from "@/js/components/toolbar";
 export function cellStyles(self, data) {
     const cell = $(self.select.selectedCell)
     const toolbar = $(".toolbar")
-    let cell_fn_size = Toolbar.basic_font_size
+    let cell_fn_size = Toolbar.default_styles["fz"]
     switch (data[0]) {
     case "format_bold":
         if (toolbar.find("[data-bold]").dataset['bold'] === "true") {
@@ -49,7 +49,11 @@ export function cellStyles(self, data) {
         break
 
     case "format_size":
-        if (self.select.selectedCell.$el.style.fontSize === "") {
+        // eslint-disable-next-line no-case-declarations
+        const num_size = self.select.selectedCell.$el.style.fontSize
+        console.log("num_size", num_size)
+        console.log("type size", num_size)
+        if (num_size === Toolbar.default_styles['fz'] || num_size === "") {
             self.select.selectedCell.css({
                 "font-size": "20px"
             })

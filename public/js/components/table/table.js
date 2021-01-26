@@ -39,7 +39,11 @@ export class Table extends ComponentController {
         this.select = new TableSelect(this.args)
         this.selected_id = [0, 0]
         this.select.select(this.selected_id)
-        this.$on("table:cell", data => this.select.selectedCell.value(data[0]))
+        this.$on("table:cell", data => {
+            const cell = $(this.select.selectedCell)
+            this.select.selectedCell.value(data[0])
+            this.$dispatch("tableCells", [cell.dataset.id, {text: data[0][0]}])
+        })
         this.$on("table:change_focus", data => this.select.selectedCell.focus())
         this.$on("toolbar:changed", data => cellStyles(this, data[0]))
     }

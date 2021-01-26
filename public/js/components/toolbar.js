@@ -3,7 +3,6 @@ import {$} from "@core/DomCreater";
 
 export class Toolbar extends ComponentController {
     static ClassName = "toolbar"
-    static basic_font_size = "18px"
     static default_styles = {
         bold: false,
         italic: false,
@@ -42,15 +41,12 @@ export class Toolbar extends ComponentController {
             Object.keys(args).forEach(data => {
                 if (data === "text") {
                     this.clearToolbarStyles()
-                    return
                 } else if (data === 'align') {
                     this.toolbar.find(`[data-align="${args[data]}"]`).addClass("icons--active")
-                } else if (data === "type") {
-                    console.log("OK")
                 } else if (data === "bold" || data == "italic" || data === "underline") {
                     this.changeStyle(args, data)
-                } else {
-                    this.clearToolbarStyles()
+                } else if (data === "fz") {
+                    this.toolbar.find("[data-fz]").addClass("icons--active")
                 }
             })
         })
