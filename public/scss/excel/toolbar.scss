@@ -3,6 +3,7 @@
   margin: 25px 0;
 
   &__item {
+    position: relative;
     margin: 0 15px;
     cursor: pointer;
     transition: .2s;
@@ -27,8 +28,19 @@
       span {
         color: #fff;
       }
+      .toolbar__range {
+        display: block;
+      }
     }
   }
+  &__range {
+    display: none;
+    position: absolute;
+    top: -40px;
+    left: -100%;
+    padding: 20px;
+  }
+
 }
 
 .icons--active {

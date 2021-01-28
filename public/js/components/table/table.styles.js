@@ -1,107 +1,64 @@
 import {$} from "@core/DomCreater";
-import {Toolbar} from "@/js/components/toolbar";
 
 export function cellStyles(self, data) {
-    const cell = $(self.select.selectedCell)
     const toolbar = $(".toolbar")
-    let cell_fn_size = Toolbar.default_styles["fz"]
+    const selected_size = $(".toolbar__range").value()
     switch (data[0]) {
     case "format_bold":
         if (toolbar.find("[data-bold]").dataset['bold'] === "true") {
-            self.select.selectedCell.css({
-                "fontWeight": "normal"
-            })
-            self.$dispatch("tableCells", [cell.dataset.id, {bold: false}])
+            changeStyle(self, "fontWeight", "normal", "bold", self.select.selectedElements, false)
         } else {
-            self.select.selectedCell.css({
-                "fontWeight": "bold"
-            })
-            self.$dispatch("tableCells", [cell.dataset.id, {bold: true}])
+            changeStyle(self, "fontWeight", "bold", "bold", self.select.selectedElements, true)
         }
         break
 
     case "format_italic":
         if (toolbar.find("[data-italic]").dataset['italic'] === "true") {
-            self.select.selectedCell.css({
-                "font-style": "normal"
-            })
-            self.$dispatch("tableCells", [cell.dataset.id, {italic: false}])
+            changeStyle(self, "font-style", "normal", "italic", self.select.selectedElements, false)
         } else {
-            self.select.selectedCell.css({
-                "font-style": "italic"
-            })
-            self.$dispatch("tableCells", [cell.dataset.id, {italic: true}])
+            changeStyle(self, "font-style", "italic", "italic", self.select.selectedElements, true)
         }
         break
 
     case "format_underlined":
         if (toolbar.find("[data-underline]").dataset['underline'] === "true") {
-            self.select.selectedCell.css({
-                "text-decoration": "none"
-            })
-            self.$dispatch("tableCells", [cell.dataset.id, {underline: false}])
+            changeStyle(self, "text-decoration", "none", "underline", self.select.selectedElements, false)
         } else {
-            self.select.selectedCell.css({
-                "text-decoration": "underline"
-            })
-            self.$dispatch("tableCells", [cell.dataset.id, {underline: true}])
+            changeStyle(self, "text-decoration", "underline", "underline", self.select.selectedElements, true)
         }
         break
 
     case "format_size":
-        // eslint-disable-next-line no-case-declarations
-        const num_size = self.select.selectedCell.$el.style.fontSize
-        console.log("num_size", num_size)
-        console.log("type size", num_size)
-        if (num_size === Toolbar.default_styles['fz'] || num_size === "") {
-            self.select.selectedCell.css({
-                "font-size": "20px"
-            })
-        } else {
-            cell_fn_size = self.select.selectedCell.$el.style.fontSize
-            cell_fn_size = parseInt(cell_fn_size.substr(0, cell_fn_size.length-2))
-            self.select.selectedCell.css({
-                "font-size": (cell_fn_size+2)+"px"
-            })
-        }
-        self.$dispatch("tableCells", [cell.dataset.id, {fz: cell_fn_size+"px"}])
+        self.select.selectedCell.css({
+            "font-size": selected_size+"px"
+        })
+        changeStyle(self, "font-size", selected_size+"px", "fz", self.select.selectedElements, selected_size+"px")
         currectSizeCell(self)
         break
 
     case "format_align_left":
-        self.select.selectedCell.css({
-            "text-align": "left"
-        })
-        self.$dispatch("tableCells", [cell.dataset.id, {align: "left"}])
-
+        changeStyle(self, "text-align", "left", "align", self.select.selectedElements, "left")
         break
 
     case "format_align_center":
-        self.select.selectedCell.css({
-            "text-align": "center"
-        })
-        self.$dispatch("tableCells", [cell.dataset.id, {align: "center"}])
-
+        changeStyle(self, "text-align", "center", "align", self.select.selectedElements, "center")
         break
 
     case "format_align_right":
-        self.select.selectedCell.css({
-            "text-align": "right"
-        })
-        self.$dispatch("tableCells", [cell.dataset.id, {align: "right"}])
-
+        changeStyle(self, "text-align", "right", "align", self.select.selectedElements, "right")
         break
 
     case "format_clear":
-        self.select.selectedCell.css({
-            "fontWeight": "normal",
-            "font-style": "normal",
-            "text-decoration": "none",
-            "text-align": "left",
-            "font-size": "18px"
+        self.select.selectedCells.forEach(cell =>{
+            cell.css({
+                "fontWeight": "normal",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "left",
+                "font-size": "18px"
+            })
         })
-        currectSizeCell(self)
-        self.$dispatch("clearStyle", [cell.dataset.id])
+        self.$dispatch("clearStyle", self.select.selectedElements)
         self.$emit("toolbar:clear")
         break
     }
@@ -121,3 +78,13 @@ export function currectSizeCell(self) {
         "height": bounds
     })
 }
+
+function changeStyle(self, style, value, name, id, bool) {
+    self.select.selectedCells.forEach(cell =>{
+        cell.css({
+            [style]: value
+        })
+    })
+    self.$dispatch("tableCells", [id, {[name]: bool}])
+}
+

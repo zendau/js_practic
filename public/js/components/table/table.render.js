@@ -31,6 +31,7 @@ export class TableRender {
         const RowStyles = this.state['tableRows']
         const CellData = JSON.parse(JSON.stringify(this.state["tableCells"]))
         let input_value = ""
+        let dataValue = ""
         for (let i = 0; i < size; i++) {
             table_rows.push(`
                 <li class="table__rows"><div class="table__row-item" 
@@ -55,9 +56,15 @@ export class TableRender {
                 } else {
                     input_value = CellData[i + ":" + j]['text']
                 }
+                if (CellData[i+":"+j]['dataValue'] !== undefined) {
+                    dataValue = `data-value="${CellData[i+":"+j]['dataValue']}"`
+                } else {
+                    dataValue = ""
+                }
                 table_rows.push(`
                     <input type="text" class="table__cell" 
                     data-cell="${String.fromCharCode(this.header_letter.A+j)}" 
+                    ${dataValue}
                     data-id="${i}:${j}"
                     value="${input_value}"
                     style = "

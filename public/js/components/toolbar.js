@@ -24,7 +24,7 @@ export class Toolbar extends ComponentController {
                 <div class="toolbar__item"><span class="material-icons" data-bold="false">format_bold</span></div>
                 <div class="toolbar__item"><span class="material-icons" data-italic="false">format_italic</span></div>
                 <div class="toolbar__item"><span class="material-icons" data-underline="false">format_underlined</span></div>
-                <div class="toolbar__item"><span class="material-icons" data-fz="18px">format_size</span></div>
+                <div class="toolbar__item"><input class="toolbar__range" type="range" min="18" max="50" step="1" value="18"><span class="material-icons" data-fz="18px">format_size</span></div>
                 <div class="toolbar__item"><span class="material-icons" data-align="left">format_align_left</span></div>
                 <div class="toolbar__item"><span class="material-icons" data-align="center">format_align_center</span></div>
                 <div class="toolbar__item"><span class="material-icons" data-align="right">format_align_right</span></div>

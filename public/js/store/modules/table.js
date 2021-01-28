@@ -14,15 +14,26 @@ export const actions = () => ({
         states["tableRows"][data[0]] = data[1]
     },
     tableCells(states, data) {
-        if (states["tableCells"][data[0]] === undefined) {
-            states["tableCells"][data[0]] = Object.assign({}, data[1])
-        } else {
-            states["tableCells"][data[0]] = Object.assign(states["tableCells"][data[0]], data[1])
+        if (typeof data[0] !== "object") {
+            data[0] = [data[0]]
         }
+        data[0].forEach(id => {
+            if (states["tableCells"][id] === undefined) {
+                states["tableCells"][id] = Object.assign({}, data[1])
+            } else {
+                states["tableCells"][id] = Object.assign(states["tableCells"][id], data[1])
+            }
+        })
     },
     clearStyle(states, data) {
-        const prev_value = states["tableCells"][data[0]]['text']
-        states["tableCells"][data[0]] = {}
-        states["tableCells"][data[0]]['text'] = prev_value
+        let prev_value
+        if (typeof data !== "object") {
+            data = [data]
+        }
+        data.forEach(id => {
+            prev_value = states["tableCells"][id]['text']
+            states["tableCells"][id] = {}
+            states["tableCells"][id]['text'] = prev_value
+        })
     }
 })

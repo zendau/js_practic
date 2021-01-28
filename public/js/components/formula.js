@@ -25,7 +25,12 @@ export class Formula extends ComponentController {
     }
 
     onInput(e) {
-        this.$emit("table:cell", e.target.value)
+        const value = e.target.value
+        if (value[0] === "=") {
+            this.$emit("table:cell", this.parser(value), value)
+        } else {
+            this.$emit("table:cell", value)
+        }
     }
 
     onKeydown(e) {
@@ -34,4 +39,34 @@ export class Formula extends ComponentController {
             this.$emit("table:change_focus")
         }
     }
+
+    parser(string) {
+        const formula = string.substring(1, string.length)
+        let new_formula = formula
+        // eslint-disable-next-line no-unused-vars
+        const func = [
+            "cos",
+            "sin",
+            "tan"
+        ]
+
+        const reg = RegExp("^[0-9()+\\-/*^(cos)(sin)(tan)]+$")
+        if (reg.exec(formula)) {
+            try {
+                func.forEach(item => {
+                    new_formula = new_formula.replaceAll(item, "Math."+item)
+                })
+                const number = eval(new_formula)
+                console.log("type", typeof number)
+                if (typeof number === "number") {
+                    return number.toFixed(4)
+                } else {
+                    return formula
+                }
+            } catch (e) {
+                console.log(e.message)
+            }
+        }
+    }
 }
+

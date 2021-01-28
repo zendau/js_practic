@@ -41,8 +41,12 @@ export class Table extends ComponentController {
         this.select.select(this.selected_id)
         this.$on("table:cell", data => {
             const cell = $(this.select.selectedCell)
-            this.select.selectedCell.value(data[0])
+            this.select.selectedCell.value(data[0][0])
+            this.select.selectedCell.setAttr("data-value", data[0][1])
             this.$dispatch("tableCells", [cell.dataset.id, {text: data[0][0]}])
+            if (data[0][1] !== undefined) {
+                this.$dispatch("tableCells", [cell.dataset.id, {dataValue: data[0][1]}])
+            }
         })
         this.$on("table:change_focus", data => this.select.selectedCell.focus())
         this.$on("toolbar:changed", data => cellStyles(this, data[0]))
@@ -126,7 +130,11 @@ export class Table extends ComponentController {
 
     updateCell() {
         const cell = $(this.select.selectedCell)
-        this.$emit("formula:input", cell.value())
+        if (cell.dataset.value !== undefined) {
+            this.$emit("formula:input", cell.dataset.value)
+        } else {
+            this.$emit("formula:input", cell.value())
+        }
         this.$emit("toolbar:active", this.getStore("tableCells"), this.select.selectedCeLLid)
         this.$dispatch("tableCells", [cell.dataset.id, {text: cell.value()}])
     }
