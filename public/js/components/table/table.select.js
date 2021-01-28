@@ -1,5 +1,5 @@
 import {$} from "@core/DomCreater";
-import {Table} from "@/js/components/table";
+import {Table} from "@/js/components/table/table";
 
 
 export class TableSelect {
@@ -9,6 +9,7 @@ export class TableSelect {
     selectedCell
     constructor(args = {}) {
         this.selectedElements = []
+        this.selectedCells = []
     }
 
     select(elem) {
@@ -18,19 +19,22 @@ export class TableSelect {
         this.selectedCell = element
         this.selectedElements.push(elem.join(":"))
         this.selectedCeLLid = this.selectedElements[0].split(":")
+        this.selectedCells.push(element)
     }
 
     selectGroup() {
         this.clean()
         this.sort()
-
+        let element
         for (let i = this.start_cell[0]; i <= this.end_cell[0]; i++) {
             for (let j = this.start_cell[1]; j <= this.end_cell[1]; j++) {
                 this.selectedElements.push(`${i}:${j}`)
             }
         }
         this.selectedElements.forEach((item, index) => {
-            $(Table.ClassName).find(`[data-id='${item}']`).addClass("table__cell--selected")
+            element = $(Table.ClassName).find(`[data-id='${item}']`)
+            this.selectedCells.push(element)
+            element.addClass("table__cell--selected")
         })
         this.selectedCell = $(Table.ClassName).find(`[data-id='${this.selectedElements[0]}']`)
         this.selectedCeLLid = this.selectedElements[0].split(":")
@@ -39,6 +43,7 @@ export class TableSelect {
     clean() {
         this.selectedElements.forEach(item => $(Table.ClassName).find(`[data-id='${item}']`).removeClass("table__cell--selected"))
         this.selectedElements = []
+        this.selectedCells = []
     }
 
     sort() {

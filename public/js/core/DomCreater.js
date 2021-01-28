@@ -111,6 +111,11 @@ class DomCreater {
         }
         return this.$el.value
     }
+
+    setAttr(name, data) {
+        this.$el.setAttribute(name, data)
+        return this
+    }
 }
 
 export function $(selector) {
