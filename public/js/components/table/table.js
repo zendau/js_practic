@@ -20,7 +20,7 @@ export class Table extends ComponentController {
 
     toHtml() {
         return `
-             <div class="table" @mousedown="onMousedown()" @keydown="onKeydown()">
+             <div class="table" @load="onLoad()" @mousedown="onMousedown()" @keydown="onKeydown()">
                 <ul class="table__column-list">
                     <li class="table__column-item table__column-item--empty">0</li>
                     ${this.tableRender.renderColumn()}
@@ -137,5 +137,9 @@ export class Table extends ComponentController {
         }
         this.$emit("toolbar:active", this.getStore("tableCells"), this.select.selectedCeLLid)
         this.$dispatch("tableCells", [cell.dataset.id, {text: cell.value()}])
+    }
+
+    onLoad(event) {
+        console.log("event load", event)
     }
 }

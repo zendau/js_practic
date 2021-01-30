@@ -21,16 +21,7 @@ class DomCreater {
             this.$el.append(data)
             return this
         } else {
-            const split_arr = data.split(">")
-            if (split_arr.length === 1) {
-                // eslint-disable-next-line no-throw-literal
-                throw new Error("data not html")
-            }
-            const selector = split_arr[0].substring(1, split_arr[0].length)
-            const body_data = data.substring(selector.length+2, data.length-selector.length - 3)
-            const node = document.createElement(selector)
-            node.textContent = body_data
-            this.$el.append(node)
+            this.$el.innerHTML = data
             return this
         }
     }
@@ -70,7 +61,7 @@ class DomCreater {
 
     append(data) {
         if (data.nodeType) {
-            this.$el.append(data)
+            return $(this.$el.append(data))
         } else {
             const node = document.createElement("div")
             node.innerHTML = data

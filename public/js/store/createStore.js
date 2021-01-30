@@ -4,7 +4,7 @@ import * as formula from "@/js/store/modules/formula"
 import * as header from "@/js/store/modules/header"
 import * as toolbar from "@/js/store/modules/toolbar"
 
-export function init_state() {
+export function init_state(id_state) {
     return new StateX({
         state: [
             table.states,
@@ -17,7 +17,8 @@ export function init_state() {
             formula.actions,
             header.actions,
             toolbar.actions
-        ]
+        ],
+        id: id_state
     })
 }
 // // console.log(test.getter("tableCell"))
