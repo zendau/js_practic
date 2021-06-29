@@ -13,14 +13,10 @@ export class StateX {
         return this.state[data]
     }
 
-    mutation() {
-
-    }
-
     dispatch(type, args) {
         this.actions[type](this.state, args)
         this.subscribers.forEach(sub => sub(this.state))
-        this.saveSate()
+        this.saveState()
     }
 
     init(data) {
@@ -30,6 +26,7 @@ export class StateX {
         const data_actions = this.reduce_modules(data["action"])
         Object.keys(data_actions).forEach(key => this.actions[key] = data_actions[key])
 
+        this.id = data['id']
         this.getServerData
     }
 
@@ -61,16 +58,17 @@ export class StateX {
         this.subscribers.push(fn)
     }
 
-    saveSate() {
-        localStorage.setItem("state", JSON.stringify(this.state))
-    }
-
-    unSubsctibe(fn) {
-        this.subscribers = this.subscribers.filter(sub => sub !== fn)
+    saveState() {
+        localStorage.setItem(this.id, JSON.stringify(this.state))
     }
 
     get getServerData() {
-        const data = JSON.parse(localStorage.getItem("state"))
+        let data = {}
+        try {
+            data = JSON.parse(localStorage.getItem(this.id))
+        } catch (e) {
+            data = {}
+        }
         if (data === null) {
             return this.getter()
         } else {
